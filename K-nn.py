@@ -55,7 +55,7 @@ def classify(inX,dataSet,labels,k):
     sortedClassCount = sorted(classCount.items(),key=operator.itemgetter(1),reverse = True)
     #返回次数最多的类别,即所要分类的类别
     return sortedClassCount[0][0]
-
+    
 if __name__ == '__main__':
     #创建数据集
     group,labels = createDataSet()
