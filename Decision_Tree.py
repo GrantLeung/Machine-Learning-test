@@ -304,9 +304,34 @@ def createPlot(inTree):
     plotTree(inTree, (0.5,1.0), '')                                                            #绘制决策树
     plt.show()       
 
+"""
+函数说明:使用决策树分类
+ 
+Parameters:
+    inputTree - 已经生成的决策树
+    featLabels - 存储选择的最优特征标签
+    testVec - 测试数据列表，顺序对应最优特征标签
+Returns:
+    classLabel - 分类结果
+"""
+def classify(inputTree, featLabels, testVec):
+    firstStr = next(iter(inputTree))
+    secondDict = inputTree[firstStr]
+    featIndex = featLabels.index(firstStr)
+    for key in secondDict.keys():
+        if testVec[featIndex] == key:
+            if type(secondDict[key]).__name__ == 'dict':
+                classLabel = classify(secondDict[key], featLabels, testVec)
+            else: classLabel = secondDict[key]
+    return classLabel
+
 if __name__ == '__main__':
     dataSet, labels = createDataSet()
     featLabels = []
     myTree = createTree(dataSet, labels, featLabels)
-    print(myTree)
-    createPlot(myTree)
+    testVec = [0,1]
+    result = classify(myTree, featLabels, testVec)
+    if result == 'yes':
+        print('放贷')
+    if result == 'no':
+        print('不放贷')
