@@ -28,7 +28,7 @@ Parameters:
     vocabList - createVocabList返回的列表
     inputSet - 切分的词条列表
 Returns:
-    returnVec - 文档向量,词袋模型
+    returnVec - 文档向.量,词袋模型
 """
 def bagOfWords2VecMN(vocabList, inputSet):
     returnVec = [0] * len(vocabList)
