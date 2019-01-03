@@ -49,10 +49,21 @@ def TextProcessing(folder_path, test_size = 0.2):
         test_data_list, test_class_list = zip(*test_list)
 
         all_words_dict = {}
+        for word_list in train_data_list:
+            for word in word_list:
+                if word in all_words_dict.keys():
+                    all_words_dict[word] += 1
+                else:
+                    all_words_dict[word] = 1
         
-        print(data_list)
-        print(class_list)
+        #根据键的值倒序排序
+
+        all_words_tuple_list = sorted(all_words_dict.items(), key = lambda f:f[1], reverse = True)
+        all_words_list, all_words_nums = zip(*all_words_tuple_list)
+        all_words_list = list(all_words_list)
+        return all_words_list, train_data_list, test_data_list, train_class_list, test_class_list
 
 if __name__ == '__main__':
     folder_path = 'SogouC/Sample'
-    TextProcessing(folder_path)
+    all_words_list, train_data_list, test_data_list, train_class_list, test_class_list = TextProcessing(folder_path, test_size=0.2)
+    print(all_words_list)
